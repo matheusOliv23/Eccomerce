@@ -26,13 +26,13 @@ export default function index() {
         </nav>
 
         <div>
-          {!auth.user && (
+          {/* {!auth.user && (
             <Link href="/login">
               <a>
                 <SignInButton />
               </a>
             </Link>
-          )}
+          )} */}
           {!auth.user && (
             <Link href="/cadastrar">
               <a>
@@ -40,7 +40,8 @@ export default function index() {
               </a>
             </Link>
           )}
-          {auth.user && <LogoutButton />}
+          {/* {auth.user && <LogoutButton />} */}
+          <SignInButton />
         </div>
       </div>
     </header>
