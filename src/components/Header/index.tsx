@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
+import LoggedButton from "../buttons/LoggedButton/LoggedButton";
 import LogoutButton from "../buttons/LogoutButton/LogoutButton";
 import SignInButton from "../buttons/SignInButton/SignInButton";
 import SignUpButton from "../buttons/SignUpButton/SignUpButton";
@@ -26,13 +27,6 @@ export default function index() {
         </nav>
 
         <div>
-          {/* {!auth.user && (
-            <Link href="/login">
-              <a>
-                <SignInButton />
-              </a>
-            </Link>
-          )} */}
           {!auth.user && (
             <Link href="/cadastrar">
               <a>
@@ -40,8 +34,15 @@ export default function index() {
               </a>
             </Link>
           )}
-          {/* {auth.user && <LogoutButton />} */}
-          <SignInButton />
+          {auth.user ? (
+            <LoggedButton />
+          ) : (
+            <Link href="/login">
+              <a>
+                <SignInButton />
+              </a>
+            </Link>
+          )}
         </div>
       </div>
     </header>
