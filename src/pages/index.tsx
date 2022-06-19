@@ -1,10 +1,19 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/Auth/AuthContext";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  const auth = useContext(AuthContext);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await auth.signout();
+    router.push("/");
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +23,8 @@ const Home: NextPage = () => {
       </Head>
       <nav>
         <Link href="/">Pagina Inicial</Link>
-        <Link href="/privado">Sessão privada</Link>
+        <Link href="/privado"> Sessão privada</Link>
+        {auth.user && <button onClick={handleLogout}>Sair</button>}
       </nav>
 
       <div>Ecommerce</div>
