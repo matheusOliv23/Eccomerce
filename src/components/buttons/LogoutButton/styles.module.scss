@@ -1,0 +1,15 @@
+.logoutButton {
+    height: 2.5rem;
+    border-radius: 3rem;
+    background: #af0129;
+    border: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    color: #fff;
+    font-weight: bold;
+    transition: filter 0.2s;
+    &:hover {
+        filter: brightness(0.8);
+    }
+}

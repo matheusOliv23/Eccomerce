@@ -19,7 +19,7 @@ export const useApi = () => ({
       user: { id: 3, name: "Teste", email: "teste@gmail.com" },
       token: "12345678",
     };
-    const response = await api.post("/signin", { email, password });
+    const response = await api.post("/auth/login", { email, password });
     return response.data;
   },
 
