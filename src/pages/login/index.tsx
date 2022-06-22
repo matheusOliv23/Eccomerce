@@ -9,12 +9,13 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import React, { useContext } from "react";
 import * as Yup from "yup";
 import { LockOutlined } from "@mui/icons-material";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
 function Copyright(props: any) {
   return (
@@ -36,31 +37,70 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().required("Campo obrigatório"),
-  password: Yup.string().required("Campo obrigatório"),
-});
+interface AuthenticateForm {
+  email: string;
+  password: string;
+  errors: string[];
+}
 
-export default function Login() {
+interface LoginPageProps {
+  returnUrl: string;
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const returnUrl = context.query.returnUrl ?? null;
+  return {
+    props: { returnUrl: returnUrl },
+  };
+};
+
+export default function Login ({ returnUrl }: LoginPageProps) {
   const auth = useContext(AuthContext);
   const router = useRouter();
 
-  const formik = useFormik({
-    initialValues: {
-      email: "foobar@example.com",
-      password: "foobar",
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      if (values.email && values.password) {
-        const isLogged = await auth.signin(values.email, values.password);
-        if (isLogged) {
-          router.push("/");
-        } else {
-          alert("Mão deu certo");
-        }
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Campo obrigatório"),
+    password: Yup.string().required("Campo obrigatório"),
+  });
+
+  const authenticateForm: AuthenticateForm = {
+    email: "",
+    password: "",
+    errors: [],
+  };
+
+  const handleSubmit = async (
+    values: AuthenticateForm,
+    actions: FormikHelpers<AuthenticateForm>
+  ) => {
+    try {
+      actions.setSubmitting(true);
+      await auth.signin(values.email, values.password);
+
+      if (returnUrl) await router.push(returnUrl);
+      else await router.push("/");
+    } catch (error: any) {
+      if (error.response.status === 401) {
+        actions.setErrors({
+          errors: [...values.errors, "Usuário ou senha inválidos"],
+        });
       }
-    },
+      actions.setSubmitting(false);
+    }
+    // if (values.email && values.password) {
+    //   const isLogged = await auth.signin(values.email, values.password);
+    //   if (isLogged) {
+    //     router.push("/");
+    //   } else {
+    //     alert("Erro ao logar");
+    //   }
+    // }
+  };
+
+  const formik = useFormik({
+    initialValues: authenticateForm,
+    validationSchema: validationSchema,
+    onSubmit: handleSubmit,
   });
   return (
     <ThemeProvider theme={theme}>
@@ -119,4 +159,4 @@ export default function Login() {
       </Container>
     </ThemeProvider>
   );
-}
+};
