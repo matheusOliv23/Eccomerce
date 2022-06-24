@@ -1,15 +1,47 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/Auth/AuthContext";
+import { api } from "../hooks/useApi";
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+type Category = {
+  id: number;
+  name: string;
+  image: string;
+};
+
+interface Products {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: Category;
+  images: string[];
+}
+
+interface ProductsRequest {
+  products: Products[];
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const service = await api.get("/products");
+  const products = await service.data;
+
+  console.log(products);
+
+  return {
+    props: { products },
+  };
+};
+
+const Home = ({ products }: ProductsRequest) => {
   const auth = useContext(AuthContext);
   const router = useRouter();
-  
+
+  console.log(products);
+
   return (
     <>
       <Head>
@@ -19,6 +51,12 @@ const Home: NextPage = () => {
       </Head>
       <div className={styles.container}>
         <div>Ecommerce</div>
+        <div>a</div>
+        {products.map((product, index) => (
+          <div key={index}>
+            <div>{product.title} teste</div>
+          </div>
+        ))}
       </div>
     </>
   );
