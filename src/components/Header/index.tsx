@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import LoggedButton from "../buttons/LoggedButton/LoggedButton";
+import { FiShoppingCart } from "react-icons/fi";
 import LogoutButton from "../buttons/LogoutButton/LogoutButton";
 import SignInButton from "../buttons/SignInButton/SignInButton";
 import SignUpButton from "../buttons/SignUpButton/SignUpButton";
@@ -22,10 +23,9 @@ export default function index() {
           </Link>
 
           <Link href="/privado">
-            <a href="">Privado</a>
+            <a href="">Products</a>
           </Link>
         </nav>
-
         <div>
           {!auth.user && (
             <Link href="/cadastrar">
@@ -44,6 +44,7 @@ export default function index() {
             </Link>
           )}
         </div>
+        <FiShoppingCart color="white" size={30} />
       </div>
     </header>
   );

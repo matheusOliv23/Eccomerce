@@ -1,28 +1,15 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import CardProduct from "../components/CardProduct/CardProduct";
 import { AuthContext } from "../contexts/Auth/AuthContext";
 import { api } from "../hooks/useApi";
-import styles from "../styles/Home.module.css";
-
-type Category = {
-  id: number;
-  name: string;
-  image: string;
-};
+import { ProductsRequest } from "../models/Products";
+import styles from "../styles/Home.module.scss";
 
 interface Products {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: Category;
-  images: string[];
-}
-
-interface ProductsRequest {
-  products: Products[];
+  products: ProductsRequest;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -36,11 +23,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const Home = ({ products }: ProductsRequest) => {
+const Home = ({ products }: Products) => {
   const auth = useContext(AuthContext);
   const router = useRouter();
 
-  console.log(products);
+  console.log(products.products);
 
   return (
     <>
@@ -50,11 +37,9 @@ const Home = ({ products }: ProductsRequest) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.container}>
-        <div>Ecommerce</div>
-        <div>a</div>
-        {products.map((product, index) => (
+        {products.products.map((product, index) => (
           <div key={index}>
-            <div>{product.title} teste</div>
+            <CardProduct product={product} />
           </div>
         ))}
       </div>
