@@ -1,9 +1,10 @@
 import { createContext } from "react";
 import { User } from "../../types/User";
+import { IContext } from "./types";
 
 export type AuthContextType = {
   user: User | null;
-  signin: (email: string, password: string) => Promise<boolean>;
+  signin: (username: string, password: string) => Promise<boolean>;
   signout: () => void;
 };
-export const AuthContext = createContext<AuthContextType>(null!);
+export const AuthContext = createContext<IContext>({} as IContext);

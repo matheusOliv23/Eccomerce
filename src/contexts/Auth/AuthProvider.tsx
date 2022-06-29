@@ -1,47 +1,35 @@
 import { useEffect, useState } from "react";
-import { useApi } from "../../hooks/useApi";
-import { User } from "../../types/User";
 import { AuthContext } from "./AuthContext";
+import { IAuthProvider, User } from "./types";
+import { getUserLocalStorage, LoginRequest, setUserLocalStorage } from "./util";
 
-export const AuthProvider = ({ children }: { children: JSX.Element }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const api = useApi();
+export const AuthProvider = ({ children }: IAuthProvider) => {
+  const [user, setUser] = useState<User | null>();
 
   useEffect(() => {
-    const validateToken = async () => {
-      const storagedata = localStorage.getItem("authtoken");
-      if (storagedata) {
-        const data = await api.validateToken(storagedata);
-        if (data.user) {
-          setUser(data.user);
-        }
-      }
-    };
-    validateToken();
+    const user = getUserLocalStorage();
+
+    if (user) {
+      setUser(user);
+    }
   }, []);
 
-  const signin = async (email: string, password: string) => {
-    const data = await api.signin(email, password);
-    if (data.user && data.token) {
-      setUser(data.user);
-      setToken(data.token);
-      return true;
-    }
-    return false;
-  };
+  async function authenticate(email: string, password: string) {
+    const response = await LoginRequest(email, password);
 
-  const signout = async () => {
+    const payload = { token: response.token, email };
+
+    setUser(payload);
+    setUserLocalStorage(payload);
+  }
+
+  const logout = async () => {
     setUser(null);
-    setToken("");
-    await api.logout();
-  };
-
-  const setToken = (token: string) => {
-    localStorage.setItem("authtoken", token);
+    setUserLocalStorage(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, signin, signout }}>
+    <AuthContext.Provider value={{ ...user, authenticate, logout }}>
       {children}
     </AuthContext.Provider>
   );
