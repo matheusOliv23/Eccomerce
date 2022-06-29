@@ -15,7 +15,6 @@ export default function CardProduct({ product }: ProductRequest) {
       <h4>{product.title}</h4>
       <h3>$ {product.price}</h3>
       <StarRating ratingStar={product.rating} />
-      <div>{product.rating}</div>
       <Button>Add to Cart</Button>
     </section>
   );

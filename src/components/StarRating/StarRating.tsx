@@ -9,7 +9,7 @@ type Rating = {
 export const StarRating = ({ ratingStar }: Rating) => {
   const [rating, setRating] = useState(ratingStar);
 
-  console.log(rating);
+
   return (
     <div className={styles.containerStar}>
       {[...Array(5)].map((star, index) => {

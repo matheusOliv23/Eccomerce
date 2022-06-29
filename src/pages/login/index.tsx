@@ -10,12 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 import { FormikHelpers, useFormik } from "formik";
-import React, { useContext } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { LockOutlined } from "@mui/icons-material";
-import { AuthContext } from "../../contexts/Auth/AuthContext";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import { useAuth } from "../../hooks/useAuth";
 
 function Copyright(props: any) {
   return (
@@ -54,8 +54,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default function Login ({ returnUrl }: LoginPageProps) {
-  const auth = useContext(AuthContext);
+export default function Login() {
+  const auth = useAuth();
   const router = useRouter();
 
   const validationSchema = Yup.object().shape({
@@ -75,10 +75,10 @@ export default function Login ({ returnUrl }: LoginPageProps) {
   ) => {
     try {
       actions.setSubmitting(true);
-      await auth.signin(values.email, values.password);
+      await auth.authenticate(values.email, values.password);
 
-      if (returnUrl) await router.push(returnUrl);
-      else await router.push("/");
+      // if (returnUrl) await router.push(returnUrl);
+      await router.push("/");
     } catch (error: any) {
       if (error.response.status === 401) {
         actions.setErrors({
@@ -87,14 +87,6 @@ export default function Login ({ returnUrl }: LoginPageProps) {
       }
       actions.setSubmitting(false);
     }
-    // if (values.email && values.password) {
-    //   const isLogged = await auth.signin(values.email, values.password);
-    //   if (isLogged) {
-    //     router.push("/");
-    //   } else {
-    //     alert("Erro ao logar");
-    //   }
-    // }
   };
 
   const formik = useFormik({
@@ -127,7 +119,7 @@ export default function Login ({ returnUrl }: LoginPageProps) {
           >
             <TextField
               fullWidth
-              id="email"
+              id="username"
               name="email"
               label="Email"
               value={formik.values.email}
