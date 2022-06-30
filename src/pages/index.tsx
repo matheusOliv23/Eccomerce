@@ -13,8 +13,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const service = await api.get("/products");
   const products = await service.data;
 
-  console.log(products);
-
   return {
     props: { products },
   };
