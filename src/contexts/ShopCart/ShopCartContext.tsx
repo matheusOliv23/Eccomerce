@@ -1,13 +1,14 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
+import dynamic from "next/dynamic";
+import { useContext, createContext, useState, ReactNode } from "react";
 import ShoppingCart from "../../components/ShoppingCart/ShoppingCart";
-import { Products } from "../../models/Products";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
+// const ShoppingCart = dynamic(
+//   () => import("../../components/ShoppingCart/ShoppingCart"),
+//   {
+//     ssr: false,
+//   }
+// );
 type ShopCartProps = {
   children: ReactNode;
 };
@@ -35,7 +36,10 @@ export function useShopCart() {
 }
 
 export function ShopCartProvider({ children }: ShopCartProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    "shopping-cart",
+    []
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   const cartQuantity = cartItems.reduce(

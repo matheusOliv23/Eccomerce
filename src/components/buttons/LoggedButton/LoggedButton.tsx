@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../../contexts/Auth/AuthContext";
+import React from "react";
 import styles from "./styles.module.scss";
 import { FaPowerOff } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { useAuth } from "../../../hooks/useAuth";
 
 export default function LoggedButton() {
-  const auth = useContext(AuthContext);
+  const auth = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {
-    await auth.signout();
+    await auth.logout();
     router.push("/");
   };
   return (

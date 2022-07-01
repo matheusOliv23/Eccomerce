@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
-import { AuthContext } from "../../../contexts/Auth/AuthContext";
+import React from "react";
+import { useAuth } from "../../../hooks/useAuth";
 import styles from "./styles.module.scss";
 
 export default function LogoutButton() {
-  const auth = useContext(AuthContext);
+  const auth = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {
-    await auth.signout();
+    await auth.logout();
     router.push("/");
   };
 
