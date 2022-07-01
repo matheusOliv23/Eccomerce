@@ -2,20 +2,23 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/Auth/AuthContext";
 import LoggedButton from "../buttons/LoggedButton/LoggedButton";
-import { FiShoppingCart } from "react-icons/fi";
+import { Icon } from "@iconify/react";
 import SignInButton from "../buttons/SignInButton/SignInButton";
 import SignUpButton from "../buttons/SignUpButton/SignUpButton";
 import styles from "./styles.module.scss";
 import { useAuth } from "../../hooks/useAuth";
+import Button from "../Button/Button";
+import { useShopCart } from "../../contexts/ShopCart/ShopCartContext";
 
 export default function Header() {
+  const { openCart, cartQuantity } = useShopCart();
   const auth = useAuth();
 
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
         <h2 style={{ color: "#ffff" }}>My Shop</h2>
-        <nav>
+        <nav className={styles.navbar}>
           <Link href="/">
             <a href="">Home</a>
           </Link>
@@ -24,7 +27,7 @@ export default function Header() {
             <a href="">Products</a>
           </Link>
         </nav>
-        <div>
+        <div className={styles.section}>
           {!auth.email && (
             <Link href="/cadastrar">
               <a>
@@ -41,8 +44,20 @@ export default function Header() {
               </a>
             </Link>
           )}
+          <button
+            style={{ border: "none", background: "transparent" }}
+            className={styles.cartButton}
+            onClick={openCart}
+          >
+            <Icon
+              icon="el:shopping-cart-sign"
+              color="white"
+              width={40}
+              height={40}
+            />
+            <div className={styles.cartIndicator}>{cartQuantity}</div>
+          </button>
         </div>
-        <FiShoppingCart color="white" size={30} />
       </div>
     </header>
   );
