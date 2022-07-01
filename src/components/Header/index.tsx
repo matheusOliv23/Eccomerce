@@ -8,8 +8,10 @@ import SignUpButton from "../buttons/SignUpButton/SignUpButton";
 import styles from "./styles.module.scss";
 import { useAuth } from "../../hooks/useAuth";
 import Button from "../Button/Button";
+import { useShopCart } from "../../contexts/ShopCart/ShopCartContext";
 
 export default function Header() {
+  const { openCart, cartQuantity } = useShopCart();
   const auth = useAuth();
 
   return (
@@ -45,6 +47,7 @@ export default function Header() {
           <button
             style={{ border: "none", background: "transparent" }}
             className={styles.cartButton}
+            onClick={openCart}
           >
             <Icon
               icon="el:shopping-cart-sign"
@@ -52,7 +55,7 @@ export default function Header() {
               width={40}
               height={40}
             />
-            <div className={styles.cartIndicator}>1</div>
+            <div className={styles.cartIndicator}>{cartQuantity}</div>
           </button>
         </div>
       </div>
