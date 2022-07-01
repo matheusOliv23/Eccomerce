@@ -5,6 +5,8 @@ import {
   ReactNode,
   useEffect,
 } from "react";
+import ShoppingCart from "../../components/ShoppingCart/ShoppingCart";
+import { Products } from "../../models/Products";
 
 type ShopCartProps = {
   children: ReactNode;
@@ -100,6 +102,7 @@ export function ShopCartProvider({ children }: ShopCartProps) {
       }}
     >
       {children}
+      <ShoppingCart isOpen={isOpen} setIsOpen={setIsOpen} />
     </ShopCartContext.Provider>
   );
 }

@@ -1,10 +1,11 @@
 import { Icon } from "@iconify/react";
 import { AddShoppingCart } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import React from "react";
 import { useShopCart } from "../../contexts/ShopCart/ShopCartContext";
 import { Products } from "../../models/Products";
 import { StarRating } from "../StarRating/StarRating";
+import { formatCurrency } from "../utilities/formatCurrency";
 import styles from "./styles.module.scss";
 
 interface ProductRequest {
@@ -14,11 +15,11 @@ export default function CardProduct({ product }: ProductRequest) {
   const { increaseCartQuantity } = useShopCart();
 
   return (
-    <section className={styles.card}>
+    <Card className={styles.card}>
       <img src={product.thumbnail} alt={product.title} />
       <span className={styles.discount}>{product.discountPercentage}% OFF</span>
-      <h4>{product.title}</h4>
-      <h3>$ {product.price}</h3>
+      <h3>{product.title}</h3>
+      <h4>{formatCurrency(product.price)}</h4>
       <StarRating ratingStar={product.rating} />
       <Button
         onClick={() => increaseCartQuantity(product.id)}
@@ -28,6 +29,6 @@ export default function CardProduct({ product }: ProductRequest) {
       >
         Adicionar ao Carrinho
       </Button>
-    </section>
+    </Card>
   );
 }
