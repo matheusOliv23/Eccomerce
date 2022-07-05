@@ -39,10 +39,18 @@ export default function ShoppingCart({ isOpen, setIsOpen }: CartProps) {
 
   return (
     <Drawer
-      sx={{ width: 800 }}
+      sx={{
+        width: 500,
+        //overflow: "auto",
+        maxHeight: "10rem",
+        height: "100%",
+      }}
       anchor="right"
       open={isOpen}
       onClose={handleCloseOpenMenu}
+      ModalProps={{
+        keepMounted: true, // Better open performance on mobile.
+      }}
     >
       {totalPrice > 0 && (
         <Typography variant="h5">Carrinho de Compras</Typography>

@@ -24,7 +24,7 @@ export default function CartItem({ id, quantity, products }: CartItemProps) {
 
   console.log(item);
   return (
-    <Card sx={{ margin: "1rem" }}>
+    <Card sx={{ margin: "1rem", minHeight: "10rem", maxWidth: 600 }}>
       <Stack direction="column" spacing={4} sx={{ padding: "2rem" }}>
         <Grid container gap={4}>
           <img
