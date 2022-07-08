@@ -1,18 +1,52 @@
-import { Icon } from "@iconify/react";
 import { AddShoppingCart } from "@mui/icons-material";
-import { Button, Card, Snackbar } from "@mui/material";
+import { Button, Card, Snackbar, Typography } from "@mui/material";
 import React from "react";
 import { useShopCart } from "../../contexts/ShopCart/ShopCartContext";
 import { Products } from "../../models/Products";
 import { StarRating } from "../StarRating/StarRating";
 import { formatCurrency } from "../utilities/formatCurrency";
-import styles from "./styles.module.scss";
+
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { makeStyles, createStyles } from "@mui/styles";
+import Link from "next/link";
 
 interface ProductRequest {
   product: Products;
 }
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    card: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      boxShadow: "0px 2px 4px rgb(0, 0, 0, 25%)",
+      width: "15.31rem",
+      textAlign: "center",
+      margin: "1.5rem",
+      cursor: "pointer",
+      backgroundColor: "#fff",
+      gap: "0.5rem",
+    },
+    cardImg: {
+      width: " 15.31rem",
+      objectFit: "cover",
+      transition: "transform .2s",
+      height: "13rem",
+      "&:hover": {
+        transform: "scale(0.95)",
+      },
+    },
+    discount: {
+      backgroundColor: "black",
+      color: "#fff",
+      padding: "1rem 2rem",
+      marginTop: "-1.8rem",
+      zIndex: 100,
+    },
+  })
+);
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -21,6 +55,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 export default function CardProduct({ product }: ProductRequest) {
   const { increaseCartQuantity } = useShopCart();
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const addProductToCart = () => {
@@ -40,12 +75,24 @@ export default function CardProduct({ product }: ProductRequest) {
   };
 
   return (
-    <Card className={styles.card}>
-      <img src={product.thumbnail} alt={product.title} />
-      <span className={styles.discount}>{product.discountPercentage}% OFF</span>
-      <h3>{product.title}</h3>
-      <h4>{formatCurrency(product.price)}</h4>
+    <Card className={classes.card}>
+      <img
+        className={classes.cardImg}
+        src={product.thumbnail}
+        alt={product.title}
+      />
+      <span className={classes.discount}>
+        {product.discountPercentage}% OFF
+      </span>
+      <Typography fontSize="1.2rem" variant="h4">
+        {product.title}
+      </Typography>
+      <Typography fontWeight="bold" fontSize="1.2" variant="h4">
+        {formatCurrency(product.price)}
+      </Typography>
       <StarRating ratingStar={product.rating} />
+
+      <Button variant="outlined">Detalhes</Button>
       <Button
         onClick={addProductToCart}
         variant="contained"

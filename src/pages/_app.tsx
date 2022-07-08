@@ -1,5 +1,4 @@
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import { AuthProvider } from "../contexts/Auth/AuthProvider";
 import Header from "../components/Header";
 import "../styles/globals.scss";
