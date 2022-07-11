@@ -75,11 +75,11 @@ export default function Header() {
             <a href="">Home</a>
           </Link>
 
-          <Link href="/privado">
-            <a href="">Products</a>
+          <Link href="/produtos">
+            <a href="">Produtos</a>
           </Link>
         </nav>
-        <Grid container alignItems="center" justifyContent="center">
+        {/* <Grid container alignItems="center" justifyContent="center">
           {!auth.email && (
             <Link href="/cadastrar">
               <a>
@@ -110,7 +110,7 @@ export default function Header() {
             />
             <div className={classes.cartIndicator}>{cartQuantity}</div>
           </Button>
-        </Grid>
+        </Grid> */}
       </header>
     </Grid>
   );
