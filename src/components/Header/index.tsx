@@ -11,51 +11,12 @@ import { useShopCart } from "../../contexts/ShopCart/ShopCartContext";
 import { createStyles, makeStyles } from "@mui/styles";
 import { Button, Grid, Typography } from "@mui/material";
 
+import { CartIndicator, HeaderContainer, HeaderContent, Nav } from "./styles";
+
 const useStyles = makeStyles(() =>
   createStyles({
-    container: {
-      height: "6rem",
-      backgroundColor: "#141a29",
-      position: "sticky",
-      width: "100%",
-      zIndex: "999999",
-    },
-    content: {
-      maxWidth: "1120px",
-      height: "6rem",
-      margin: "0 auto",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-around",
-    },
-    nav: {
-      color: "#fff",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginLeft: "5rem",
-
-      "& a": {
-        paddingLeft: "3rem",
-        padding: "0 0.5rem",
-      },
-    },
     carBtn: {
       position: "relative",
-    },
-    cartIndicator: {
-      width: "1.5rem",
-      height: "1.5rem",
-      borderRadius: "50%",
-      backgroundColor: "red",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      position: "absolute",
-      bottom: "0",
-      right: "0",
-      color: "white",
-      transform: "translate(5%, 5%)",
     },
   })
 );
@@ -65,12 +26,10 @@ export default function Header() {
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.container}>
-      <header className={classes.content}>
-        <nav className={classes.nav}>
-          <Typography fontSize="1.6rem" variant="h5">
-            My Shop
-          </Typography>
+    <HeaderContainer>
+      <HeaderContent>
+        <Nav>
+          <h3>My Shop</h3>
           <Link href="/">
             <a href="">Home</a>
           </Link>
@@ -78,8 +37,8 @@ export default function Header() {
           <Link href="/produtos">
             <a href="">Produtos</a>
           </Link>
-        </nav>
-        {/* <Grid container alignItems="center" justifyContent="center">
+        </Nav>
+        <Grid container alignItems="center" justifyContent="center">
           {!auth.email && (
             <Link href="/cadastrar">
               <a>
@@ -108,10 +67,10 @@ export default function Header() {
               width={40}
               height={40}
             />
-            <div className={classes.cartIndicator}>{cartQuantity}</div>
+            <CartIndicator>{cartQuantity}</CartIndicator>
           </Button>
-        </Grid> */}
-      </header>
-    </Grid>
+        </Grid>
+      </HeaderContent>
+    </HeaderContainer>
   );
 }

@@ -82,43 +82,37 @@ export default function CardProduct({ product }: ProductRequest) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Card className={classes.card}>
-        <img
-          className={classes.cardImg}
-          src={product.thumbnail}
-          alt={product.title}
-        />
-        <span className={classes.discount}>
-          {product.discountPercentage}% OFF
-        </span>
-        <Typography fontSize="1.2rem" variant="h4">
-          {product.title}
-        </Typography>
-        <Typography fontWeight="bold" fontSize="1.2" variant="h4">
-          {formatCurrency(product.price)}
-        </Typography>
-        <StarRating ratingStar={product.rating} />
+    <Card className={classes.card}>
+      <img
+        className={classes.cardImg}
+        src={product.thumbnail}
+        alt={product.title}
+      />
+      <span className={classes.discount}>
+        {product.discountPercentage}% OFF
+      </span>
+      <Typography fontSize="1.2rem" variant="h4">
+        {product.title}
+      </Typography>
+      <Typography fontWeight="bold" fontSize="1.2" variant="h4">
+        {formatCurrency(product.price)}
+      </Typography>
+      <StarRating ratingStar={product.rating} />
 
-        <Button variant="outlined">Detalhes</Button>
-        <Button
-          onClick={addProductToCart}
-          variant="contained"
-          fullWidth
-          endIcon={<AddShoppingCart />}
-        >
-          Adicionar ao Carrinho
-        </Button>
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Adicionado ao carrinho
-          </Alert>
-        </Snackbar>
-      </Card>
-    </ThemeProvider>
+      <Button variant="outlined">Detalhes</Button>
+      <Button
+        onClick={addProductToCart}
+        variant="contained"
+        fullWidth
+        endIcon={<AddShoppingCart />}
+      >
+        Adicionar ao Carrinho
+      </Button>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Adicionado ao carrinho
+        </Alert>
+      </Snackbar>
+    </Card>
   );
 }
