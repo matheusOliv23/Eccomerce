@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function index({ products }: Products) {
   return (
-    <ThemeProvider theme={theme}>
+    <div>
       <MaxContainer>
         <Grid
           sx={{
@@ -43,6 +43,6 @@ export default function index({ products }: Products) {
           ))}
         </Grid>
       </MaxContainer>
-    </ThemeProvider>
+    </div>
   );
 }

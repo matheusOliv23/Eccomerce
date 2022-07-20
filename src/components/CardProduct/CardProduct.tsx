@@ -1,11 +1,5 @@
 import { AddShoppingCart } from "@mui/icons-material";
-import {
-  Button,
-  Card,
-  Snackbar,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
+import { Button, Snackbar, ThemeProvider, Typography } from "@mui/material";
 import React from "react";
 import { useShopCart } from "../../contexts/ShopCart/ShopCartContext";
 import { Products } from "../../models/Products";
@@ -14,8 +8,7 @@ import { formatCurrency } from "../utilities/formatCurrency";
 
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { makeStyles, createStyles } from "@mui/styles";
-import Link from "next/link";
-import { theme } from "../../styles/theme";
+import { Card, CardImage, Discount } from "./styles";
 
 interface ProductRequest {
   product: Products;
@@ -23,19 +16,6 @@ interface ProductRequest {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    card: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column",
-      boxShadow: "0px 2px 4px rgb(0, 0, 0, 25%)",
-      width: "15.31rem",
-      textAlign: "center",
-      margin: "1.5rem",
-
-      backgroundColor: "#fff",
-      gap: "0.5rem",
-    },
     cardImg: {
       width: " 15.31rem",
       objectFit: "cover",
@@ -82,43 +62,31 @@ export default function CardProduct({ product }: ProductRequest) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Card className={classes.card}>
-        <img
-          className={classes.cardImg}
-          src={product.thumbnail}
-          alt={product.title}
-        />
-        <span className={classes.discount}>
-          {product.discountPercentage}% OFF
-        </span>
-        <Typography fontSize="1.2rem" variant="h4">
-          {product.title}
-        </Typography>
-        <Typography fontWeight="bold" fontSize="1.2" variant="h4">
-          {formatCurrency(product.price)}
-        </Typography>
-        <StarRating ratingStar={product.rating} />
+    <Card>
+      <CardImage src={product.thumbnail} alt={product.title} />
+      <Discount>{product.discountPercentage}% OFF</Discount>
+      <Typography fontSize="1.2rem" variant="h4">
+        {product.title}
+      </Typography>
+      <Typography fontWeight="bold" fontSize="1.2" variant="h4">
+        {formatCurrency(product.price)}
+      </Typography>
+      <StarRating ratingStar={product.rating} />
 
-        <Button variant="outlined">Detalhes</Button>
-        <Button
-          onClick={addProductToCart}
-          variant="contained"
-          fullWidth
-          endIcon={<AddShoppingCart />}
-        >
-          Adicionar ao Carrinho
-        </Button>
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            Adicionado ao carrinho
-          </Alert>
-        </Snackbar>
-      </Card>
-    </ThemeProvider>
+      <Button variant="outlined">Detalhes</Button>
+      <Button
+        onClick={addProductToCart}
+        variant="contained"
+        fullWidth
+        endIcon={<AddShoppingCart />}
+      >
+        Adicionar ao Carrinho
+      </Button>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Adicionado ao carrinho
+        </Alert>
+      </Snackbar>
+    </Card>
   );
 }

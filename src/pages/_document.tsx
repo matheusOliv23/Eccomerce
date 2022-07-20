@@ -1,32 +1,92 @@
-import * as React from "react";
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import createEmotionServer from "@emotion/server/create-instance";
-import { theme } from "../styles/theme";
-import createEmotionCache from "../styles/createEmotionCache";
+import Document, {
+  DocumentContext,
+  DocumentInitialProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from "next/document";
+
+import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
+
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        });
+
+      const initialProps = await Document.getInitialProps(ctx);
+      return {
+        ...initialProps,
+        styles: [
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>,
+        ],
+      };
+    } finally {
+      sheet.seal();
+    }
+  }
+
   render() {
     return (
-      <Html lang="en">
+      <Html lang="pt-br">
         <Head>
-          {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="shortcut icon" href="/static/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
+            rel="shortcut icon"
+            href="https://og-image.vercel.app/Matheus%20Oliveira.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-white-logo.svg"
+          />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200&family=Montserrat:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+            rel="stylesheet"
+          />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
+            rel="stylesheet"
           />
 
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet"
           />
-          {/* Inject MUI styles first to match with the prepend: true configuration. */}
-          {(this.props as any).emotionStyleTags}
+
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;700&display=swap"
+            rel="stylesheet"
+          />
+
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700&display=swap"
+            rel="stylesheet"
+          />
+          <link rel="ico" href="https://rocketseat.com.br/favicon.ico" />
+
+          <meta charSet="utf-8" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         </Head>
         <body>
           <Main />
@@ -36,118 +96,3 @@ export default class MyDocument extends Document {
     );
   }
 }
-
-MyDocument.getInitialProps = async (ctx) => {
-  const originalRenderPage = ctx.renderPage;
-
-  const cache = createEmotionCache();
-  const { extractCriticalToChunks } = createEmotionServer(cache);
-
-  ctx.renderPage = () =>
-    originalRenderPage({
-      enhanceApp: (App: any) =>
-        function EnhanceApp(props) {
-          return <App emotionCache={cache} {...props} />;
-        },
-    });
-
-  const initialProps = await Document.getInitialProps(ctx);
-  const emotionStyles = extractCriticalToChunks(initialProps.html);
-  const emotionStyleTags = emotionStyles.styles.map((style) => (
-    <style
-      data-emotion={`${style.key} ${style.ids.join(" ")}`}
-      key={style.key}
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: style.css }}
-    />
-  ));
-
-  return {
-    ...initialProps,
-    emotionStyleTags,
-  };
-};
-
-// import * as React from "react";
-// import Document, { Html, Head, Main, NextScript } from "next/document";
-// import createEmotionServer from "@emotion/server/create-instance";
-// import createEmotionCache from "../styles/createEmotionCache";
-
-// export default class MyDocument extends Document {
-//   render() {
-//     return (
-//       <Html lang="en">
-//         <Head>
-//           {/* PWA primary color */}
-//           <meta name="theme-color" content="{theme.palette.primary.main}" />
-
-//           {/* Inject MUI styles first to match with the prepend: true configuration. */}
-//           {(this.props as any).emotionStyleTags}
-//         </Head>
-//         <body>
-//           <Main />
-//           <NextScript />
-//         </body>
-//       </Html>
-//     );
-//   }
-// }
-
-// // `getInitialProps` belongs to `_document` (instead of `_app`),
-// // it's compatible with static-site generation (SSG).
-// MyDocument.getInitialProps = async (ctx) => {
-//   // Resolution order
-//   //
-//   // On the server:
-//   // 1. app.getInitialProps
-//   // 2. page.getInitialProps
-//   // 3. document.getInitialProps
-//   // 4. app.render
-//   // 5. page.render
-//   // 6. document.render
-//   //
-//   // On the server with error:
-//   // 1. document.getInitialProps
-//   // 2. app.render
-//   // 3. page.render
-//   // 4. document.render
-//   //
-//   // On the client
-//   // 1. app.getInitialProps
-//   // 2. page.getInitialProps
-//   // 3. app.render
-//   // 4. page.render
-
-//   const originalRenderPage = ctx.renderPage;
-
-//   // You can consider sharing the same Emotion cache between all the SSR requests to speed up performance.
-//   // However, be aware that it can have global side effects.
-//   const cache = createEmotionCache();
-//   const { extractCriticalToChunks } = createEmotionServer(cache);
-
-//   ctx.renderPage = () =>
-//     originalRenderPage({
-//       enhanceApp: (App: any) =>
-//         function EnhanceApp(props) {
-//           return <App emotionCache={cache} {...props} />;
-//         },
-//     });
-
-//   const initialProps = await Document.getInitialProps(ctx);
-//   // This is important. It prevents Emotion to render invalid HTML.
-//   // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
-//   const emotionStyles = extractCriticalToChunks(initialProps.html);
-//   const emotionStyleTags = emotionStyles.styles.map((style) => (
-//     <style
-//       data-emotion={`${style.key} ${style.ids.join(" ")}`}
-//       key={style.key}
-//       // eslint-disable-next-line react/no-danger
-//       dangerouslySetInnerHTML={{ __html: style.css }}
-//     />
-//   ));
-
-//   return {
-//     ...initialProps,
-//     emotionStyleTags,
-//   };
-// };
