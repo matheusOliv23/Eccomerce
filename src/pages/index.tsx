@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@mui/material";
+import { Grid, ThemeProvider } from "@mui/material";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import CardProduct from "../components/CardProduct/CardProduct";
@@ -30,11 +30,22 @@ const Home = ({ products }: Products) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MaxContainer>
-        {products.products.map((product, index) => (
-          <div key={index}>
-            <CardProduct product={product} />
-          </div>
-        ))}
+        <Grid
+          sx={{
+            padding: "0 2rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+          container
+        >
+          {products.products.map((product, index) => (
+            <div key={index}>
+              <CardProduct product={product} />
+            </div>
+          ))}
+        </Grid>
       </MaxContainer>
     </div>
   );
