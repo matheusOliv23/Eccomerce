@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   height: 6rem;
-  background-color: ${(props) => props.theme.backgroundNav};
+  //background-color: ${(props) => props.theme.backgroundNav};
   position: sticky;
   width: 100%;
   color: ${(props) => props.theme.textLight};

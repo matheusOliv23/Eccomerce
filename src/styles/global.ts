@@ -1,7 +1,8 @@
 import { lighten } from "polished";
+import { ThemeType } from "src/pages/_app";
 import { createGlobalStyle } from "styled-components";
 
-export default createGlobalStyle`
+export default createGlobalStyle<{ theme: ThemeType }>`
   * {
     margin: 0;
     padding: 0;
@@ -24,6 +25,7 @@ export default createGlobalStyle`
   body, html {
     width: 100%;
     height: 100%;
+    background-color: ${(props) => props.theme.backgroundDark};
    
   }
   body {

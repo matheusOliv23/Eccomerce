@@ -2,7 +2,7 @@ export const theme = {
   background: "#16384c",
   backgroundLight: "#ffe0b2",
   backgroundNav: "#141a29",
-  backgroundDark3: "#010606",
+  backgroundDark: "#0B0D0F",
   backgroundDark2: "#1a1a1b",
   backgroundSlider: "black",
   buttonBackground: "#25D366",

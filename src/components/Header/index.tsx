@@ -26,51 +26,54 @@ export default function Header() {
   const classes = useStyles();
 
   return (
-    <HeaderContainer>
-      <HeaderContent>
-        <Nav>
-          <h3>My Shop</h3>
-          <Link href="/">
-            <a href="">Home</a>
-          </Link>
+    <div>
+      {" "}
+      <HeaderContainer>
+        <HeaderContent>
+          <Nav>
+            <h3>My Shop</h3>
+            <Link href="/">
+              <a href="">Home</a>
+            </Link>
 
-          <Link href="/produtos">
-            <a href="">Produtos</a>
-          </Link>
-        </Nav>
-        <Grid container alignItems="center" justifyContent="center">
-          {!auth.email && (
-            <Link href="/cadastrar">
-              <a>
-                <SignUpButton />
-              </a>
+            <Link href="/produtos">
+              <a href="">Produtos</a>
             </Link>
-          )}
-          {auth.email ? (
-            <LoggedButton />
-          ) : (
-            <Link href="/login">
-              <a>
-                <SignInButton />
-              </a>
-            </Link>
-          )}
-          <Button
-            variant="contained"
-            sx={{ outline: "none", background: "transparent" }}
-            className={classes.carBtn}
-            onClick={openCart}
-          >
-            <Icon
-              icon="el:shopping-cart-sign"
-              color="white"
-              width={40}
-              height={40}
-            />
-            <CartIndicator>{cartQuantity}</CartIndicator>
-          </Button>
-        </Grid>
-      </HeaderContent>
-    </HeaderContainer>
+          </Nav>
+          <Grid container alignItems="center" justifyContent="center">
+            {!auth.email && (
+              <Link href="/cadastrar">
+                <a>
+                  <SignUpButton />
+                </a>
+              </Link>
+            )}
+            {auth.email ? (
+              <LoggedButton />
+            ) : (
+              <Link href="/login">
+                <a>
+                  <SignInButton />
+                </a>
+              </Link>
+            )}
+            <Button
+              variant="contained"
+              sx={{ outline: "none", background: "transparent" }}
+              className={classes.carBtn}
+              onClick={openCart}
+            >
+              <Icon
+                icon="el:shopping-cart-sign"
+                color="white"
+                width={40}
+                height={40}
+              />
+              <CartIndicator>{cartQuantity}</CartIndicator>
+            </Button>
+          </Grid>
+        </HeaderContent>
+      </HeaderContainer>
+    </div>
   );
 }
