@@ -34,8 +34,8 @@ export default function CartItem({ id, quantity, products }: CartItemProps) {
       <Image src={item.thumbnail} width={120} height={100} />
 
       <PriceContainer>
-        <Typography>{item.title}</Typography>
-        <Typography fontWeight="bold">{formatCurrency(item.price)}</Typography>
+        <p>{item.title}</p>
+        <p>{formatCurrency(item.price)}</p>
 
         <Fab
           size="small"
@@ -47,7 +47,7 @@ export default function CartItem({ id, quantity, products }: CartItemProps) {
             <Remove />
           </Tooltip>
         </Fab>
-        <Typography>{quantity}</Typography>
+        <p>{quantity}</p>
         <Fab
           size="small"
           color="secondary"
@@ -58,7 +58,7 @@ export default function CartItem({ id, quantity, products }: CartItemProps) {
         </Fab>
       </PriceContainer>
 
-      <Typography>{formatCurrency(item.price * quantity)}</Typography>
+      <p>{formatCurrency(item.price * quantity)}</p>
       <IconButton
         onClick={() => removeFromCart(item.id)}
         color="primary"
