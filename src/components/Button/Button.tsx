@@ -1,10 +1,11 @@
 import React, { ReactNode } from "react";
-import styles from "./styles.module.scss";
+import { ButtonBase } from "./styles";
 
 type Button = {
   children: ReactNode;
+  onClick?: any;
 };
 
-export default function Button({ children }: Button) {
-  return <div className={styles.container}>{children}</div>;
+export default function Button({ children, onClick }: Button) {
+  return <ButtonBase onClick={onClick}>{children}</ButtonBase>;
 }

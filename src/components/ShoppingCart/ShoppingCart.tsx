@@ -6,6 +6,7 @@ import CartItem from "../CartItem/CartItem";
 import { ProductsRequest } from "../../models/Products";
 import { api } from "../../services/api";
 import { formatCurrency } from "../utilities/formatCurrency";
+import { Cart } from "./styles";
 
 type CartProps = {
   isOpen: any;
@@ -38,33 +39,40 @@ export default function ShoppingCart({ isOpen, setIsOpen }: CartProps) {
   }, 0);
 
   return (
-    <Drawer
-      sx={{
-        width: 500,
-        //overflow: "auto",
-        maxHeight: "10rem",
-        height: "100%",
-      }}
-      anchor="right"
-      open={isOpen}
-      onClose={handleCloseOpenMenu}
-      ModalProps={{
-        keepMounted: true, // Better open performance on mobile.
-      }}
-    >
-      {totalPrice > 0 && (
-        <Typography variant="h5">Carrinho de Compras</Typography>
-      )}
+    <Cart>
+      <Drawer
+        sx={{
+          width: 500,
+          //overflow: "auto",
+          zIndex: 9999999999999999,
+          maxHeight: "10rem",
+          height: "100%",
+          boxShadow: "20px 20px 50px rgba(0, 0, 0, 0.5)",
+          background: "#0000000",
+        }}
+        anchor="right"
+        open={isOpen}
+        onClose={handleCloseOpenMenu}
+        ModalProps={{
+          keepMounted: false, // Better open performance on mobile.
+        }}
+      >
+        <Cart>
+          {totalPrice > 0 && (
+            <Typography variant="h5">Carrinho de Compras</Typography>
+          )}
 
-      {cartItems.map((item) => (
-        <CartItem products={products} key={item.id} {...item} />
-      ))}
-      {totalPrice > 0 && (
-        <Typography variant="h6">
-          {" "}
-          Total: {formatCurrency(totalPrice)}
-        </Typography>
-      )}
-    </Drawer>
+          {cartItems.map((item) => (
+            <CartItem products={products} key={item.id} {...item} />
+          ))}
+          {totalPrice > 0 && (
+            <Typography variant="h6">
+              {" "}
+              Total: {formatCurrency(totalPrice)}
+            </Typography>
+          )}
+        </Cart>
+      </Drawer>
+    </Cart>
   );
 }

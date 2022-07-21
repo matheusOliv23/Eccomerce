@@ -12,14 +12,18 @@ export const HeaderContainer = styled.header`
   justify-content: center;
   font-size: 1rem;
   top: 0;
-  z-index: 10;
+  z-index: 9999999;
   position: sticky;
   height: 6rem;
 
   h2 {
     padding-right: 5rem;
   }
-  //background-color: ${(props) => props.theme.backgroundNav};
+
+  strong {
+    color: ${(props) => props.theme.primary};
+  }
+  background-color: ${(props) => props.theme.backgroundDark};
 
   color: ${(props) => props.theme.textLight};
 `;
@@ -51,7 +55,8 @@ export const NavlinkContainer = styled.li<NavlinkProps>`
   a {
     text-transform: uppercase;
     text-decoration: none;
-    color: ${(props) => (props.isActive ? "#49A7F0" : "white")};
+    color: ${(props) =>
+      props.isActive ? lighten(0.2, props.theme.primary) : "white"};
     //background: ${(props) => (props.isActive ? " #d0d3d4" : "black")};
     padding: 1.3rem;
     font-weight: 600;

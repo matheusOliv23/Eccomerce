@@ -15,7 +15,7 @@ export default createGlobalStyle<{ theme: ThemeType }>`
       height: 5px;
     }
     ::-webkit-scrollbar-thumb {
-      background: black;
+      background: #8B1DA2;
       border-radius: 10px;
     }
     ::-webkit-scrollbar-track{
@@ -30,7 +30,16 @@ export default createGlobalStyle<{ theme: ThemeType }>`
   }
   body {
     font: 400 1rem 'Montserrat', sans-serif;  
+    z-index: 1;
   }
+
+  body::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
   img {
     width: 100%;
     max-width: 100%;

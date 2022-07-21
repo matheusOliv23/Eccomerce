@@ -37,27 +37,25 @@ export default function CartItem({ id, quantity, products }: CartItemProps) {
         <Typography>{item.title}</Typography>
         <Typography fontWeight="bold">{formatCurrency(item.price)}</Typography>
 
-        <Stack direction="row" alignItems="center" spacing={3}>
-          <Fab
-            size="small"
-            color="secondary"
-            aria-label="remove"
-            onClick={() => decreaseCartQuantity(item.id)}
-          >
-            <Tooltip title="Remover item">
-              <Remove />
-            </Tooltip>
-          </Fab>
-          <Typography>{quantity}</Typography>
-          <Fab
-            size="small"
-            color="secondary"
-            aria-label="add"
-            onClick={() => increaseCartQuantity(item.id)}
-          >
-            <Add />
-          </Fab>
-        </Stack>
+        <Fab
+          size="small"
+          color="secondary"
+          aria-label="remove"
+          onClick={() => decreaseCartQuantity(item.id)}
+        >
+          <Tooltip title="Remover item">
+            <Remove />
+          </Tooltip>
+        </Fab>
+        <Typography>{quantity}</Typography>
+        <Fab
+          size="small"
+          color="secondary"
+          aria-label="add"
+          onClick={() => increaseCartQuantity(item.id)}
+        >
+          <Add />
+        </Fab>
       </PriceContainer>
 
       <Typography>{formatCurrency(item.price * quantity)}</Typography>

@@ -41,7 +41,10 @@ export default function Header() {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <h2>Tech Shop</h2>
+        <h2>
+          <strong>T</strong>e<strong>c</strong>h <strong>S</strong>h
+          <strong>o</strong>p
+        </h2>
         <NavMenu>
           {menu.map((item, index) => (
             <Navlink key={index} titulo={item.titulo} rota={item.rota} />
