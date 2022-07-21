@@ -1,37 +1,72 @@
 import styled from "styled-components";
+import { lighten } from "polished";
 
+interface NavlinkProps {
+  isActive: boolean;
+}
 export const HeaderContainer = styled.header`
-  height: 6rem;
-  //background-color: ${(props) => props.theme.backgroundNav};
-  position: sticky;
   width: 100%;
-  color: ${(props) => props.theme.textLight};
+  height: 3.8rem;
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  top: 0;
+  z-index: 10;
+  position: sticky;
+  height: 6rem;
+
+  h2 {
+    padding-right: 5rem;
+  }
+  //background-color: ${(props) => props.theme.backgroundNav};
+
+  color: ${(props) => props.theme.textLight};
 `;
 
 export const HeaderContent = styled.div`
-  max-width: 1120px;
-  height: 6rem;
-  margin: 0 auto;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
+  height: 5rem;
+  z-index: 1;
+  width: 100%;
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
-export const Nav = styled.nav`
-  color: #fff;
+export const NavMenu = styled.ul`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  a {
-    padding-left: 3rem;
-    padding: 0 0.5rem;
-    color: ${(props) => props.theme.textLight};
+  text-align: center;
+  margin-right: -1.4rem;
+  @media screen and (max-width: 760px) {
+    display: none;
   }
 `;
 
+export const NavlinkContainer = styled.li<NavlinkProps>`
+  padding: 0 1rem;
+  a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: ${(props) => (props.isActive ? "#49A7F0" : "white")};
+    //background: ${(props) => (props.isActive ? " #d0d3d4" : "black")};
+    padding: 1.3rem;
+    font-weight: 600;
+    &:hover {
+      color: ${(props) =>
+        props.isActive
+          ? lighten(0.2, props.theme.primary)
+          : lighten(
+              0.2,
+              props.theme.primary
+            )}; // muda o hover caso o link esteja ativo ou não
+      transition: 0.3s ease-in-out;
+    }
+  }
+`;
 export const CartIndicator = styled.div`
   width: 1.5rem;
   height: 1.5rem;
