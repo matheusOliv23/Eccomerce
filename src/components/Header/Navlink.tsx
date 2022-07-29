@@ -24,8 +24,8 @@ export default function Navlink({ titulo, rota, includes = false }: LinkProps) {
 
   return (
     <NavlinkContainer isActive={isActive}>
-      <Link href={rota}>
-        <a>{titulo}</a>
+      <Link href={rota} passHref>
+        {titulo}
       </Link>
     </NavlinkContainer>
   );

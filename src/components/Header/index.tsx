@@ -52,19 +52,15 @@ export default function Header() {
         </NavMenu>
         <Grid container alignItems="center" justifyContent="center">
           {!auth.email && (
-            <Link href="/cadastrar">
-              <a>
-                <SignUpButton />
-              </a>
+            <Link href="/cadastrar" passHref>
+              <SignUpButton />
             </Link>
           )}
           {auth.email ? (
             <LoggedButton />
           ) : (
-            <Link href="/login">
-              <a>
-                <SignInButton />
-              </a>
+            <Link href="/login" passHref>
+              <SignInButton />
             </Link>
           )}
           <Button

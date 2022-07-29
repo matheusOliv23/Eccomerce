@@ -16,7 +16,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <ShopCartProvider>
         <ThemeProvider theme={theme}>
-          <Header />
           <Component {...pageProps} />
           <GlobalStyles />
         </ThemeProvider>

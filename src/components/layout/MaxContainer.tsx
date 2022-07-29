@@ -20,5 +20,5 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 export default function MaxContainer({ children }: ContainerProps) {
   const classes = useStyles();
-  return <main className={classes.container}>{children}</main>;
+  return <div className={classes.container}>{children}</div>;
 }

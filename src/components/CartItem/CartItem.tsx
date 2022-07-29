@@ -31,7 +31,12 @@ export default function CartItem({ id, quantity, products }: CartItemProps) {
 
   return (
     <CardItem>
-      <Image src={item.thumbnail} width={120} height={100} />
+      <Image
+        src={item.thumbnail}
+        alt={`${item.title}`}
+        width={120}
+        height={100}
+      />
 
       <PriceContainer>
         <p>{item.title}</p>

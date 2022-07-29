@@ -24,7 +24,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function index({ products }: Products) {
   return (
-    <div>
+    <>
+      <Header />
       <MaxContainer>
         <Grid
           sx={{
@@ -43,6 +44,6 @@ export default function index({ products }: Products) {
           ))}
         </Grid>
       </MaxContainer>
-    </div>
+    </>
   );
 }
