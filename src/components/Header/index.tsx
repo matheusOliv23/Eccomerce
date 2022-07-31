@@ -9,7 +9,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 import { useShopCart } from "../../contexts/ShopCart/ShopCartContext";
 import { createStyles, makeStyles } from "@mui/styles";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, IconButton } from "@mui/material";
 
 import {
   CartIndicator,
@@ -63,17 +63,13 @@ export default function Header() {
               <SignInButton />
             </Link>
           )}
-          <Button
-            variant="contained"
-            sx={{ outline: "none", background: "transparent" }}
-            className={classes.carBtn}
-            onClick={openCart}
-          >
+          <Button sx={{ position: "relative" }}>
             <Icon
               icon="el:shopping-cart-sign"
               color="white"
               width={40}
               height={40}
+              onClick={openCart}
             />
             <CartIndicator>{cartQuantity}</CartIndicator>
           </Button>

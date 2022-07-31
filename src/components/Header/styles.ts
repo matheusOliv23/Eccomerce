@@ -4,7 +4,7 @@ import { lighten } from "polished";
 interface NavlinkProps {
   isActive: boolean;
 }
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled.nav`
   width: 100%;
   height: 3.8rem;
   display: flex;
