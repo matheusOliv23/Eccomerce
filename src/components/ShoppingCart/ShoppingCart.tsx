@@ -9,6 +9,8 @@ import { formatCurrency } from "../utilities/formatCurrency";
 import { Cart } from "./styles";
 import Modal from "../Modal";
 import CartModal from "../CartModal";
+import { ThemeProvider } from "styled-components";
+import { theme } from "src/styles/theme";
 
 type CartProps = {
   isOpen: any;
@@ -44,34 +46,41 @@ export default function ShoppingCart({ isOpen, setIsOpen }: CartProps) {
     // <CartModal isOpen={isOpen} onClose={handleCloseOpenMenu} />
 
     <Modal open={isOpen} onClose={handleCloseOpenMenu} title="Meu Carrinho">
-      teste
+      {/* <Cart>       
+        {totalPrice > 0 && <h3>Carrinho de Compras</h3>}
+        teste
+        {cartItems.map((item) => (
+          <CartItem products={products} key={item.id} {...item} />
+        ))}
+        {totalPrice > 0 && <h3> Total: {formatCurrency(totalPrice)}</h3>}
+      </Cart> */}
     </Modal>
-
-    // <Drawer
-    //   sx={
-    //     {
+    // <ThemeProvider theme={theme}>
+    //   <Drawer
+    //     sx={{
     //       //overflow: "auto",
-    //       // zIndex: 9999999999999999,
+    //       zIndex: 9999999999999999,
     //       // maxHeight: "10rem",
     //       // height: "100%",
     //       // boxShadow: "20px 20px 50px rgba(0, 0, 0, 0.5)",
-    //     }
-    //   }
-    //   anchor="right"
-    //   open={isOpen}
-    //   onClose={handleCloseOpenMenu}
-    //   ModalProps={{
-    //     keepMounted: true, // Better open performance on mobile.
-    //   }}
-    // >
-    //   <Cart>
-    //     {totalPrice > 0 && <p>Carrinho de Compras</p>}
-
-    //     {cartItems.map((item) => (
-    //       <CartItem products={products} key={item.id} {...item} />
-    //     ))}
-    //     {totalPrice > 0 && <p> Total: {formatCurrency(totalPrice)}</p>}
-    //   </Cart>
-    // </Drawer>
+    //     }}
+    //     PaperProps={{ sx: { width: 500, background: "black" } }}
+    //     anchor="right"
+    //     open={isOpen}
+    //     onClose={handleCloseOpenMenu}
+    //     ModalProps={{
+    //       keepMounted: true, // Better open performance on mobile.
+    //     }}
+    //   >
+    //     <Cart>
+    //       {totalPrice > 0 && <p>Carrinho de Compras</p>}
+    //       teste
+    //       {cartItems.map((item) => (
+    //         <CartItem products={products} key={item.id} {...item} />
+    //       ))}
+    //       {totalPrice > 0 && <p> Total: {formatCurrency(totalPrice)}</p>}
+    //     </Cart>
+    //   </Drawer>
+    // </ThemeProvider>
   );
 }

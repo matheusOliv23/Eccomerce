@@ -31,17 +31,15 @@ export default function Modal({ open, onClose, title, children }: ModalProps) {
 
   const modalContent = open ? (
     <StyledModalOverlay>
-      <StyledModalWrapper>
-        <StyledModal>
-          <StyledModalHeader>
-            <a href="#" onClick={handleCloseClick}>
-              x
-            </a>
-          </StyledModalHeader>
-          {title}
-          <StyledModalBody>{children}</StyledModalBody>
-        </StyledModal>
-      </StyledModalWrapper>
+      <StyledModal>
+        <StyledModalHeader>
+          <a href="#" onClick={handleCloseClick}>
+            x
+          </a>
+        </StyledModalHeader>
+        {title}
+        <StyledModalBody>{children}</StyledModalBody>
+      </StyledModal>
     </StyledModalOverlay>
   ) : null;
 

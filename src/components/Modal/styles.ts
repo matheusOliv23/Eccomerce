@@ -16,17 +16,24 @@ export const StyledModalWrapper = styled.div`
 
 export const StyledModal = styled.div`
   background: white;
-  width: 500px;
-  height: 600px;
+  width: 350px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  //right: -100%;
+  transition: 1500ms ease;
+  background-color: #161623;
   border-radius: 15px;
   padding: 15px;
 `;
 export const StyledModalOverlay = styled.div`
+  transition: 1.5s;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
