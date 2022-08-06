@@ -8,7 +8,7 @@ import { api } from "../../services/api";
 import { formatCurrency } from "../utilities/formatCurrency";
 import { Cart } from "./styles";
 import Modal from "../Modal";
-import CartModal from "../CartModal";
+
 import { ThemeProvider } from "styled-components";
 import { theme } from "src/styles/theme";
 
@@ -43,8 +43,6 @@ export default function ShoppingCart({ isOpen, setIsOpen }: CartProps) {
   }, 0);
 
   return (
-    // <CartModal isOpen={isOpen} onClose={handleCloseOpenMenu} />
-
     <Modal open={isOpen} onClose={handleCloseOpenMenu} title="Meu Carrinho">
       {/* <Cart>       
         {totalPrice > 0 && <h3>Carrinho de Compras</h3>}
